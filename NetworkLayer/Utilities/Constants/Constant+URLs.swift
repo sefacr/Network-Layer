@@ -8,9 +8,9 @@
 import Foundation
 
 extension Constant {
-    
+
     struct URLs {
-        
+
         static let rmBaseURL = "https://rickandmortyapi.com/api/"
         static let jphBaseURL = "https://jsonplaceholder.typicode.com/"
     }

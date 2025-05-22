@@ -8,14 +8,14 @@
 import Alamofire
 
 class RequestModel {
-    
+
     let baseURL: String
     let path: String
     let method: HTTPMethod
     let headers: HTTPHeaders?
     let parameters: Parameters?
     let encoding: ParameterEncoding
-    
+
     init(
         baseURL: String,
         path: String,
@@ -32,4 +32,3 @@ class RequestModel {
         self.encoding = encoding
     }
 }
-

@@ -5,8 +5,8 @@
 //  Created by Sefa Acar on 22.05.2025.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 protocol NetworkProtocol {
     func request<T: Decodable>(
@@ -16,19 +16,18 @@ protocol NetworkProtocol {
 }
 
 final class NetworkManager {
-        
+
     private let session: Session
-    
+
     init(session: Session = .default) {
         self.session = session
     }
-    
 }
 
 // MARK: - NetworkProtocol
 
 extension NetworkManager: NetworkProtocol {
-    
+
     func request<T: Decodable>(
         requestModel: RequestModel,
         responseType: T.Type,
@@ -52,11 +51,11 @@ extension NetworkManager: NetworkProtocol {
         }
     }
 }
-    
+
 // MARK: - Private Methods
 
 private extension NetworkManager {
-    
+
     private func parseResponse<T: Decodable>(
         _ response: AFDataResponse<Data>,
         completion: @escaping (Result<T, NetworkError>) -> Void
@@ -72,13 +71,14 @@ private extension NetworkManager {
                 print("📦 Raw:\n\(raw)")
                 completion(.failure(.decoding))
             }
+
         case .failure:
             let code = response.response?.statusCode
             let message = HTTPURLResponse.localizedString(forStatusCode: code ?? 500)
             completion(.failure(.init(message: message, code: code)))
         }
     }
-    
+
     private func logRequest(url: String, requestModel: RequestModel) {
         print("""
         🔹 [REQUEST]
@@ -88,12 +88,12 @@ private extension NetworkManager {
         ▶️ Parameters: \(requestModel.parameters ?? [:])
         """)
     }
-    
+
     private func logResponse(_ response: AFDataResponse<Data>) {
         let status = response.response?.statusCode ?? -1
         let url = response.request?.url?.absoluteString ?? "N/A"
         let dataString = String(data: response.data ?? Data(), encoding: .utf8) ?? "empty"
-        
+
         print("""
         🔸 [RESPONSE]
         ✅ Status: \(status)
